@@ -17,6 +17,10 @@ Follow these steps to get this program working:
 
 6) Uncomment the last test in main.  If your three previous tests pass, this one should, too.
 
+Note: I had a problem with core-dumping on the last one, and after talking with Dan realized
+it was because I didn't allocate in memory the resposne in reverse_string so when I was assigning
+the return type to char *s, it would get removed from memory since its stack frame would disapear.
+
 */
 
 #include <stdio.h>
@@ -33,12 +37,11 @@ s: string
 returns: string
 */
 char *reverse_string(char *s) {
-    char res[strlen(s)+1];
+    char* res = (char*)malloc(sizeof(strlen(s)+1));
     for(int i = 0; i < strlen(s)+1; i++) {
         res[i] = s[strlen(s)-i-1];
     }
-    s = res;
-    return s;
+    return res;
 }
 
 /* ctoi: Converts a character to integer.
@@ -167,6 +170,7 @@ void test_reverse_string() {
     } else {
         printf("reverse_string failed\n");
     }
+    free(t);
 }
 
 void test_itoc() {
