@@ -1,5 +1,11 @@
-util: util.h util.c
-		gcc -Wall -c util.c
+util.o: util.c util.h
+	cc -c util.c
 
-trout: trout.h trout.c util
-	gcc -Wall -g -o trout trout.c util.o main.c
+trout.o: trout.c trout.h
+	gcc -c trout.c
+
+main.o: main.c trout.o util.o
+	gcc -c main.c
+
+trout: main.o
+	gcc main.o trout.o util.o -o trout

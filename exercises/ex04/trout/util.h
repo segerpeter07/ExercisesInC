@@ -22,10 +22,6 @@
 #define MAXLINE 4096
 #define BUFSIZE 1500
 
-typedef struct rec {                /* outgoing UDP data */
-  u_short seq;          /* sequence number */
-} Rec;
-
 typedef struct timeval Timeval;
 typedef struct sockaddr Sockaddr;
 
@@ -65,20 +61,3 @@ Sockaddr *salast;
 Sockaddr *sabind;
 
 socklen_t salen;
-
-
-
-
-
-#define max(a,b) ((a) > (b) ? (a) : (b))
-
-/* the following are prototypes for the Stevens utilities in util.c */
-
-
-
-void Sendto(int fd, const void *ptr, size_t nbytes, int flags,
-	    const struct sockaddr *sa, socklen_t salen);
-struct addrinfo *Host_serv(const char *host, const char *serv,
-			   int family, int socktype);
-
-void loop_ttl ();
