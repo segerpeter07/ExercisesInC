@@ -7,7 +7,6 @@
 
 static char *test1() {
     char* res = icmpcode_v4(0);
-    // printf("%s",res);
     char *message = "test failed icmpcode_v4(0) should return \"network unreachable\" ";
     mu_assert(message, !strcmp(res, "network unreachable"));
     return NULL;
