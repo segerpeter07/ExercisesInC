@@ -12,12 +12,15 @@ License: MIT License https://opensource.org/licenses/MIT
 #include <errno.h>
 #include <sys/time.h>
 #include <sys/types.h>
-#include <wait.h>
+#include <sys/wait.h>
 
 
 // errno is an external global variable that contains
 // error information
 extern int errno;
+
+int j = 15;             // global test
+int *testPtr = NULL;    // heap test
 
 
 // get_seconds returns the number of seconds since the
@@ -34,6 +37,13 @@ void child_code(int i)
 {
     sleep(i);
     printf("Hello from child %d.\n", i);
+
+    printf("Address of stack pointer: %pd\n", &i);  // has access to stack since same ptr
+    printf("Value of global is: %d  Pointer is: %pd\n", j, &j); // has access to global
+    printf("Address of heap pointer: %p   Value: %d\n", testPtr, *testPtr);
+
+    j++;                        // recieves copy
+    *testPtr = *testPtr + 1;    // recieves copy
 }
 
 // main takes two parameters: argc is the number of command-line
@@ -45,6 +55,9 @@ int main(int argc, char *argv[])
     pid_t pid;
     double start, stop;
     int i, num_children;
+
+    testPtr = malloc(sizeof(int));
+    *testPtr = 10;
 
     // the first command-line argument is the name of the executable.
     // if there is a second, it is the number of children to create.
