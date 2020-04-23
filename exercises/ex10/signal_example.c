@@ -73,6 +73,7 @@ int main(void) {
         alarm(5);
 
         // get the answer
+<<<<<<< HEAD
         while(1) {
     	    char *ret = fgets(txt, 4, stdin);
             if(ret) {
@@ -80,6 +81,12 @@ int main(void) {
             }
         }
 
+=======
+        while (1) {
+            char *ret = fgets(txt, 4, stdin);
+            if (ret) break;
+        }
+>>>>>>> 164148ba1b0707c6d7e2dbea6c0f09eeb7d9c862
         answer = atoi(txt);
 
         // check the answer
